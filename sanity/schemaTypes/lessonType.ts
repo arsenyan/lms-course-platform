@@ -65,5 +65,19 @@ export const lessonType = defineType({
       type: "array",
       of: [{ type: "block" }],
     }),
+    defineField({
+      name: "quiz",
+      title: "Quiz (optional)",
+      type: "quiz",
+      description:
+        "Add a graded quiz for this lesson. Configure questions and passing score.",
+    }),
+    defineField({
+      name: "questionnaire",
+      title: "Questionnaire (optional)",
+      type: "questionnaire",
+      description:
+        "Add a survey-style questionnaire (ungraded) for this lesson.",
+    }),
   ],
 });

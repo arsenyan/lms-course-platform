@@ -1,10 +1,13 @@
-import { redirect } from "next/navigation";
-import { currentUser } from "@clerk/nextjs/server";
-import { getLessonById } from "@/sanity/lib/lessons/getLessonById";
-import { PortableText } from "@portabletext/react";
-import { LoomEmbed } from "@/components/LoomEmbed";
-import { VideoPlayer } from "@/components/VideoPlayer";
-import { LessonCompleteButton } from "@/components/LessonCompleteButton";
+import { redirect } from 'next/navigation';
+import { currentUser } from '@clerk/nextjs/server';
+import { getLessonById } from '@/sanity/lib/lessons/getLessonById';
+import { PortableText } from '@portabletext/react';
+import { LoomEmbed } from '@/components/LoomEmbed';
+import { VideoPlayer } from '@/components/VideoPlayer';
+import { LessonCompleteButton } from '@/components/LessonCompleteButton';
+import { Quiz } from '@/components/Quiz';
+import { Questionnaire } from '@/components/Questionnaire';
+import type { Quiz as QuizType, Questionnaire as QuestionnaireType } from '@/sanity.types';
 
 interface LessonPageProps {
   params: Promise<{
@@ -29,9 +32,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         <div className="max-w-4xl mx-auto pt-12 pb-20 px-4">
           <h1 className="text-2xl font-bold mb-4">{lesson.title}</h1>
 
-          {lesson.description && (
-            <p className="text-muted-foreground mb-8">{lesson.description}</p>
-          )}
+          {lesson.description && <p className="text-muted-foreground mb-8">{lesson.description}</p>}
 
           <div className="space-y-8">
             {/* Video Section */}
@@ -49,6 +50,27 @@ export default async function LessonPage({ params }: LessonPageProps) {
                 </div>
               </div>
             )}
+
+            {/* Quiz */}
+            {lesson.quiz?.questions?.length ? (
+              <div>
+                <h2 className="text-xl font-semibold mb-4">Quiz</h2>
+                {/* Hydrate on client; the component manages local scoring. We pass a server submitter via action proxy */}
+                <Quiz quiz={lesson.quiz as QuizType} lessonId={lesson._id} clerkId={user!.id} />
+              </div>
+            ) : null}
+
+            {/* Questionnaire */}
+            {lesson.questionnaire?.fields?.length ? (
+              <div>
+                <h2 className="text-xl font-semibold mb-4">Questionnaire</h2>
+                <Questionnaire
+                  questionnaire={lesson.questionnaire as QuestionnaireType}
+                  lessonId={lesson._id}
+                  clerkId={user!.id}
+                />
+              </div>
+            ) : null}
 
             <div className="flex justify-end">
               <LessonCompleteButton lessonId={lesson._id} clerkId={user!.id} />

@@ -15,7 +15,7 @@ function Loading() {
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full"
+              className="group hover:shadow-xs transition overflow-hidden border rounded-lg p-3 h-full"
             >
               {/* Image */}
               <div className="relative w-full aspect-video rounded-md overflow-hidden">

@@ -8,6 +8,17 @@ import { studentType } from "./studentType";
 import { enrollmentType } from "./enrollmentType";
 import { categoryType } from "./categoryType";
 import { lessonCompletionType } from "./lessonCompletionType";
+import {
+  quizType,
+  quizQuestionType,
+  quizAnswerOptionType,
+} from "./quizType";
+import {
+  questionnaireType,
+  questionnaireFieldType,
+} from "./questionnaireType";
+import { quizAttemptType } from "./quizAttemptType";
+import { questionnaireResponseType } from "./questionnaireResponseType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -20,6 +31,14 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     enrollmentType,
     categoryType,
     lessonCompletionType,
+    // Assessments
+    quizType,
+    quizQuestionType,
+    quizAnswerOptionType,
+    questionnaireType,
+    questionnaireFieldType,
+    quizAttemptType,
+    questionnaireResponseType,
   ],
 };
 

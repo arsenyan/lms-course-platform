@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { BookMarkedIcon, BookOpen } from "lucide-react";
-import Link from "next/link";
-import { SearchInput } from "./SearchInput";
-import { Button } from "./ui/button";
-import DarkModeToggle from "./DarkModeToggle";
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { BookMarkedIcon, BookOpen } from 'lucide-react';
+import Link from 'next/link';
+import { SearchInput } from './SearchInput';
+import { Button } from './ui/button';
+import DarkModeToggle from './DarkModeToggle';
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xs border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between gap-4">
           <div className="flex items-center gap-4">
@@ -19,7 +19,7 @@ export default function Header() {
               className="flex items-center space-x-2 hover:opacity-90 transition-opacity"
             >
               <BookOpen className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-linear-to-r from-primary/90 to-primary bg-clip-text text-transparent">
                 Courselly
               </span>
             </Link>
@@ -46,11 +46,16 @@ export default function Header() {
             </SignedIn>
 
             <SignedOut>
-              <SignInButton mode="modal">
-                <Button variant="outline" size="default">
-                  Sign In
-                </Button>
-              </SignInButton>
+              <div className="flex items-center gap-2">
+                <Link href="/sign-in">
+                  <Button variant="outline" size="default">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/consent">
+                  <Button size="default">Sign Up</Button>
+                </Link>
+              </div>
             </SignedOut>
           </div>
         </div>

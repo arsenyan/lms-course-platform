@@ -253,7 +253,7 @@ export function Sidebar({ course, completedLessons = [] }: SidebarProps) {
           "lg:z-50 lg:block lg:w-96 lg:border-r",
           isOpen
             ? "w-[calc(100%-60px)] translate-x-[60px] lg:translate-x-0 lg:w-96"
-            : "translate-x-[-100%] lg:translate-x-0"
+            : "-translate-x-full lg:translate-x-0"
         )}
       >
         <div className="h-full">
@@ -264,7 +264,7 @@ export function Sidebar({ course, completedLessons = [] }: SidebarProps) {
       {/* Overlay for mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-30 bg-background/80 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-30 bg-background/80 backdrop-blur-xs lg:hidden"
           onClick={close}
         />
       )}
