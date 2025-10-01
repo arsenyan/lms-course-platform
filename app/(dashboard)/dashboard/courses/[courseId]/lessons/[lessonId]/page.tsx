@@ -7,7 +7,7 @@ import { VideoPlayer } from '@/components/VideoPlayer';
 import { LessonCompleteButton } from '@/components/LessonCompleteButton';
 import { Quiz } from '@/components/Quiz';
 import { Questionnaire } from '@/components/Questionnaire';
-import type { Quiz as QuizType, Questionnaire as QuestionnaireType } from '@/sanity.types';
+import type { Questionnaire as QuestionnaireType } from '@/sanity.types';
 
 interface LessonPageProps {
   params: Promise<{
