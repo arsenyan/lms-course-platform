@@ -7,7 +7,6 @@ import { VideoPlayer } from '@/components/VideoPlayer';
 import { LessonCompleteButton } from '@/components/LessonCompleteButton';
 import { Quiz } from '@/components/Quiz';
 import { Questionnaire } from '@/components/Questionnaire';
-import type { Questionnaire as QuestionnaireType } from '@/sanity.types';
 
 interface LessonPageProps {
   params: Promise<{
@@ -58,8 +57,21 @@ export default async function LessonPage({ params }: LessonPageProps) {
                 {/* Hydrate on client; the component manages local scoring. We pass a server submitter via action proxy */}
                 <Quiz
                   quiz={{
-                    ...lesson.quiz,
-                    questions: lesson.quiz.questions,
+                    title: lesson.quiz.title,
+                    description: lesson.quiz.description,
+                    shuffleQuestions: lesson.quiz.shuffleQuestions,
+                    passScore: lesson.quiz.passScore,
+                    questions: lesson.quiz.questions.map(q => ({
+                      question: q.question || '',
+                      answerOptions:
+                        q.answerOptions?.map(opt => ({
+                          text: opt.text || '',
+                          isCorrect: opt.isCorrect,
+                        })) || [],
+                      explanation: q.explanation,
+                      points: q.points,
+                      required: q.required,
+                    })),
                   }}
                   lessonId={lesson._id}
                   clerkId={user!.id}
@@ -72,7 +84,19 @@ export default async function LessonPage({ params }: LessonPageProps) {
               <div>
                 <h2 className="text-xl font-semibold mb-4">Questionnaire</h2>
                 <Questionnaire
-                  questionnaire={lesson.questionnaire as QuestionnaireType}
+                  questionnaire={{
+                    title: lesson.questionnaire.title,
+                    description: lesson.questionnaire.description,
+                    fields: lesson.questionnaire.fields.map(f => ({
+                      label: f.label || '',
+                      name: f.name || '',
+                      type: f.type || 'shortText',
+                      options: f.options,
+                      required: f.required,
+                      placeholder: f.placeholder,
+                      helpText: f.helpText,
+                    })),
+                  }}
                   lessonId={lesson._id}
                   clerkId={user!.id}
                 />
