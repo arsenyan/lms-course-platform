@@ -56,7 +56,14 @@ export default async function LessonPage({ params }: LessonPageProps) {
               <div>
                 <h2 className="text-xl font-semibold mb-4">Quiz</h2>
                 {/* Hydrate on client; the component manages local scoring. We pass a server submitter via action proxy */}
-                <Quiz quiz={lesson.quiz as QuizType} lessonId={lesson._id} clerkId={user!.id} />
+                <Quiz
+                  quiz={{
+                    ...lesson.quiz,
+                    questions: lesson.quiz.questions,
+                  }}
+                  lessonId={lesson._id}
+                  clerkId={user!.id}
+                />
               </div>
             ) : null}
 
